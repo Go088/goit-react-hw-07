@@ -5,11 +5,12 @@ import css from "./App.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchContacts } from "../../redux/contactsOps";
+import { selectError, selectLoading } from "../../redux/selectors";
 
 export const App = () => {
   const dispatch = useDispatch();
-  const loading = useSelector((state) => state.contacts.loading);
-  const error = useSelector((state) => state.contacts.error);
+  const loading = useSelector(selectLoading);
+  const error = useSelector(selectError);
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -21,7 +22,7 @@ export const App = () => {
       <ContactForm />
       <SearchBox />
       {loading && <b>Loading...</b>}
-      {error && <b>Server Errors</b>}
+      {error && <b>Server Error</b>}
       <ContactList />
     </div>
   );
